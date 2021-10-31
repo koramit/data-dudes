@@ -2,6 +2,8 @@
 
 namespace App\Console;
 
+use App\Actions\AdmissionListBuilder;
+use App\Actions\AdmissionListUpdater;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -25,6 +27,19 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
+        // $schedule->call(fn() => (new AdmissionListUpdater)->run())->hourlyAt(0);
+        // $schedule->call(fn() => (new AdmissionListUpdater)->run())->hourlyAt(10);
+        // $schedule->call(fn() => (new AdmissionListBuilder)->run())->hourlyAt(15);
+        // $schedule->call(fn() => (new AdmissionListUpdater)->run())->hourlyAt(30);
+        // $schedule->call(fn() => (new AdmissionListBuilder)->run())->hourlyAt(45);
+        // $schedule->call(fn() => (new AdmissionListUpdater)->run())->hourlyAt(40);
+
+        $schedule->call(fn () => (new AdmissionListUpdater)->run())->hourlyAt(30);
+        $schedule->call(fn () => (new AdmissionListUpdater)->run())->hourlyAt(33);
+        $schedule->call(fn () => (new AdmissionListBuilder)->run())->hourlyAt(36);
+        $schedule->call(fn () => (new AdmissionListUpdater)->run())->hourlyAt(39);
+        $schedule->call(fn () => (new AdmissionListBuilder)->run())->hourlyAt(42);
+        $schedule->call(fn () => (new AdmissionListUpdater)->run())->hourlyAt(45);
     }
 
     /**

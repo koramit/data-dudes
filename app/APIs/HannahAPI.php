@@ -37,10 +37,11 @@ class HannahAPI
     {
         $data = $this->makePost('admission', ['an' => $an]);
 
-        if (! isset($data['found']) || ! $data['found']) {
-            $data['message'] = __('service.item_not_found', ['item' => 'AN']);
-            unset($data['body']);
+        if (! isset($data['found'])) {
+            $data['found'] = false;
+        }
 
+        if (! $data['found']) {
             return $data;
         }
 
