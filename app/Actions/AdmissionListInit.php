@@ -55,7 +55,7 @@ class AdmissionListInit
         for ($an = 57629400; $an <= 57635150; $an++) {
             $admit = $api->getAdmission($an);
             if (! $admit['found']) {
-                AdmitCall::create(['an' => $an, 'retry' => 30]);
+                AdmitCall::create(['an' => $an, 'retry' => 40]);
             } else {
                 $manager->manage($admit);
             }
