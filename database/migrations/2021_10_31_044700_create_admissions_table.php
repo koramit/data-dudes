@@ -20,8 +20,8 @@ class CreateAdmissionsTable extends Migration
             $table->string('name', 128)->index();
             $table->date('dob')->nullable()->index();
             $table->unsignedTinyInteger('gender')->index();
-            $table->string('discharge_type_name', 30)->nullable()->index();
-            $table->string('discharge_status_name', 30)->nullable()->index();
+            $table->string('discharge_type_name', 100)->nullable()->index();
+            $table->string('discharge_status_name', 100)->nullable()->index();
             $table->date('encountered_at')->nullable()->index();
             $table->date('dismissed_at')->nullable()->index();
             $table->foreignId('ward_id')->constrained('wards')->onDelete('cascade');
