@@ -18,11 +18,11 @@ class CreateStaysTable extends Migration
             $table->unsignedBigInteger('ref_id')->unique();
             $table->boolean('on_work_hour')->default(true)->index();
             $table->unsignedBigInteger('hn')->index();
-            $table->string('name', 128);
+            $table->string('name', 128)->nullable();
             $table->date('dob')->nullable()->index();
-            $table->unsignedTinyInteger('gender')->index();
+            $table->unsignedTinyInteger('gender')->nullable()->index();
             $table->boolean('anonymouse')->default(true);
-            $table->string('origin', 30)->index();
+            $table->string('origin', 30)->nullable()->index();
             $table->string('chief_complaint')->nullable();
             $table->string('zone_type', 120)->nullable();
             $table->string('zone_name', 120)->nullable();
@@ -37,7 +37,7 @@ class CreateStaysTable extends Migration
             $table->string('diagnosis')->nullable();
             $table->unsignedTinyInteger('sbp')->nullable();
             $table->unsignedTinyInteger('dbp')->nullable();
-            $table->decimal('body_temperature_celsius', 3, 1, true)->nullable();
+            $table->decimal('temperature_celsius', 3, 1, true)->nullable();
             $table->unsignedTinyInteger('pulse_per_minute')->nullable();
             $table->unsignedTinyInteger('respiration_rate_per_minute')->nullable();
             $table->unsignedTinyInteger('o2_sat')->nullable();
@@ -46,7 +46,7 @@ class CreateStaysTable extends Migration
             $table->string('outcome', 60)->nullable()->index();
             $table->string('remark')->nullable();
             $table->dateTime('encountered_at')->index();
-            $table->dateTime('dismissed_at')->index();
+            $table->dateTime('dismissed_at')->nullable()->index();
             $table->timestamps();
         });
     }
