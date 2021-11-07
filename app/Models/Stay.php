@@ -12,6 +12,8 @@ class Stay extends Model
     protected $guarded = [];
 
     protected $casts = [
+        'triaged_at' => 'datetime',
+        'vital_signs_at' => 'datetime',
         'medicine_consulted_at' => 'datetime',
         'encountered_at' => 'datetime',
         'dismissed_at' => 'datetime',
