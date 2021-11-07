@@ -4,6 +4,9 @@ namespace App\Console;
 
 use App\Actions\AdmissionListBuilder;
 use App\Actions\AdmissionListUpdater;
+use App\Actions\StayListBuilder;
+use App\Actions\StayListUpdater;
+use App\Actions\StayOutcomeUpdater;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -26,13 +29,37 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+        // admissoin
         $schedule->call(fn () => (new AdmissionListUpdater)->run())->hourlyAt(0);
         $schedule->call(fn () => (new AdmissionListUpdater)->run())->hourlyAt(10);
         $schedule->call(fn () => (new AdmissionListBuilder)->run())->hourlyAt(15);
         $schedule->call(fn () => (new AdmissionListUpdater)->run())->hourlyAt(30);
         $schedule->call(fn () => (new AdmissionListBuilder)->run())->hourlyAt(45);
         $schedule->call(fn () => (new AdmissionListUpdater)->run())->hourlyAt(50);
+
+        // stay
+        // $schedule->call(function () {
+        //     (new StayListBuilder)->run();
+        //     (new StayOutcomeUpdater)->run();
+        // })->hourlyAt(0);
+        // $schedule->call(fn () => (new StayListBuilder)->run())->hourlyAt(6);
+        // $schedule->call(function () {
+        //     (new StayListBuilder)->run();
+        //     (new StayListUpdater)->run();
+        // })->hourlyAt(12);
+        // $schedule->call(fn () => (new StayListBuilder)->run())->hourlyAt(18);
+        // $schedule->call(fn () => (new StayListBuilder)->run())->hourlyAt(24);
+        // $schedule->call(function () {
+        //     (new StayListBuilder)->run();
+        //     (new StayListUpdater)->run();
+        // })->hourlyAt(30);
+        // $schedule->call(fn () => (new StayListBuilder)->run())->hourlyAt(36);
+        // $schedule->call(fn () => (new StayListBuilder)->run())->hourlyAt(42);
+        // $schedule->call(function () {
+        //     (new StayListBuilder)->run();
+        //     (new StayListUpdater)->run();
+        // })->hourlyAt(48);
+        // $schedule->call(fn () => (new StayListBuilder)->run())->hourlyAt(54);
     }
 
     /**
