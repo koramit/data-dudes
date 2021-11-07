@@ -3,14 +3,18 @@
 namespace App\Actions;
 
 use App\APIs\StayAPI;
+use App\APIs\StayHannahAPI;
 use App\Models\Stay;
-use Illuminate\Support\Carbon;
+use App\Traits\StayFormatable;
 
 class StayListBuilder
 {
+    use StayFormatable;
+
     public function run()
     {
-        $api = new StayAPI;
+        // $api = new StayAPI;
+        $api = new StayHannahAPI;
 
         $data = $api->getQueue();
 
@@ -23,12 +27,9 @@ class StayListBuilder
                            ->get()
                            ->pluck('ref_id');
 
-        // return collect($data)->filter(fn ($stay) => ! $activeStays->contains($stay['id']));
-
         $this->newStays($data, $activeStays);
-        // $this->dismissStays($data, $activeStays->toArray());
 
-        // return $stays;
+        $this->dismissStays($data, $activeStays);
     }
 
     protected function newStays(array $data, $activeStays)
@@ -39,66 +40,26 @@ class StayListBuilder
                                     'created_at' => now(),
                                ]);
 
+        logger('new stay:'.$stays->count());
         if (! $stays->count()) {
             return;
         }
-
-        dd($stays);
 
         Stay::insert($stays->values()->toArray());
     }
 
-    protected function dismissStays(array $data, array $activeStays)
+    protected function dismissStays(array $data, $activeStays)
     {
-        $stays = collect($data)->map(fn ($stay) => [
-                                    'ref_id' => $stay['id'],
-                                ])
-                                ->whereIn('ref_id', $activeStays)
-                                ->pluck('ref_id');
+        $stays = collect($data)->map(fn ($stay) => [$stay['id']])->flatten();
 
-        if (! $stays->count()) {
+        $dismissStays = $activeStays->filter(fn ($stay) => ! $stays->contains($stay));
+
+        logger('dismiss stay:'.$dismissStays->count());
+        if (! $dismissStays->count()) {
             return;
         }
 
-        Stay::whereIn('ref_id', $stays)
+        Stay::whereIn('ref_id', $dismissStays)
             ->update(['dismissed_at' => now()]);
-    }
-
-    protected function formatStay($stay)
-    {
-        $stay = $stay['doc'] ?? $stay;
-
-        return [
-            'ref_id' => $stay['en'],
-            'on_work_hour' => $stay['isInOfficeHour'],
-            'hn' => $stay['hn'],
-            'dob' => Carbon::create($stay['birthdate']),
-            'name' => $stay['fname'],
-            'gender' => ($stay['gender'] ?? '') === 'หญิง' ? 1 : 2,
-            'anonymouse' => $stay['anonymouse'],
-            'origin' => $stay['modeArrival'] ?? null,
-            'chief_complaint' => $stay['cc'] ?? null,
-            'zone_type' => $stay['zone'] ?? null,
-            'zone_name' => $stay['zoneName'] ?? null,
-            'tag_number' => $stay['position'] ?? null,
-            'movement' => $stay['movementType'] ?? null,
-            'severity_level' => $stay['acuityLVL'] ?? null,
-            'insurance' => $stay['scheme'] ?? null,
-            'triaged_at' => ($stay['TfinishTriage'] ?? false) ? Carbon::createFromTimestamp($stay['TfinishTriage'] / 1000) : null,
-            'cpr' => $stay['CPR'] ?? null,
-            'tube' => $stay['isTube'] ?? null,
-            'observe' => $stay['isObserve'] ?? null,
-            'diagnosis' => $stay['dx'] ?? null,
-            'sbp' => $stay['bpSys'] ?? null,
-            'dbp' => $stay['bpDias'] ?? null,
-            'temperature_celsius' => $stay['temp'] ?? null,
-            'pulse_per_minute' => $stay['pr'] ?? null,
-            'respiration_rate_per_minute' => $stay['rr'] ?? null,
-            'o2_sat' => $stay['o2'] ?? null,
-            'vital_signs_at' => ($stay['vitalSignTime'] ?? null) ? Carbon::createFromTimestamp($stay['TfinishTriage'] / 1000) : null,
-            'medicine_consulted_at' => ($stay['isConsultMed'] ?? false) ? now() : null,
-            'remark' => 'remark' ?? null,
-            'encountered_at' => Carbon::createFromTimestamp($stay['Tcheckin'] / 1000),
-        ];
     }
 }

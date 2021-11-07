@@ -21,7 +21,7 @@ class CreateStaysTable extends Migration
             $table->string('name', 128)->nullable();
             $table->date('dob')->nullable()->index();
             $table->unsignedTinyInteger('gender')->nullable()->index();
-            $table->boolean('anonymouse')->default(true);
+            $table->boolean('anonymous')->default(true);
             $table->string('origin', 30)->nullable()->index();
             $table->string('chief_complaint')->nullable();
             $table->string('zone_type', 120)->nullable();
