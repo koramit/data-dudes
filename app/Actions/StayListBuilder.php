@@ -40,7 +40,6 @@ class StayListBuilder
                                     'created_at' => now(),
                                ]);
 
-        logger('new stay:'.$stays->count());
         if (! $stays->count()) {
             return;
         }
@@ -54,7 +53,6 @@ class StayListBuilder
 
         $dismissStays = $activeStays->filter(fn ($stay) => ! $stays->contains($stay));
 
-        logger('dismiss stay:'.$dismissStays->count());
         if (! $dismissStays->count()) {
             return;
         }
