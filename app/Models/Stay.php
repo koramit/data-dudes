@@ -11,6 +11,12 @@ class Stay extends Model
 
     protected $guarded = [];
 
+    protected $casts = [
+        'medicine_consulted_at' => 'datetime',
+        'encountered_at' => 'datetime',
+        'dismissed_at' => 'datetime',
+    ];
+
     public function notes()
     {
         return $this->hasMany('App\Models\StayNote', 'stay_id', 'id');
