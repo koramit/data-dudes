@@ -24,8 +24,8 @@ trait StayNoteFormatable
                 $data['type'] = 'consult';
                 $items = collect($note['consultDepartment']);
                 $data['note'] = $items->pluck('name')->unique()->join(' | ');
-                $data['date_note'] = $note['status'] === 2
-                                        ? Carbon::createFromTimestamp($note['Tfinish'] / 1000)
+                $data['date_note'] = isset($note['Tstart'])
+                                        ? Carbon::createFromTimestamp($note['Tstart'] / 1000)
                                         : null;
             } elseif ($note['cardType'] === 'note') {
                 $data['type'] = 'note';

@@ -38,7 +38,6 @@ trait StayFormatable
             'respiration_rate_per_minute' => $stay['rr'] ?? null,
             'o2_sat' => $stay['o2'] ?? null,
             'vital_signs_at' => ($stay['vitalSignTime'] ?? null) ? Carbon::createFromTimestamp($stay['vitalSignTime'] / 1000) : null,
-            'medicine_consulted_at' => ($stay['isConsultMed'] ?? false) ? now() : null,
             'remark' => $stay['remark'] ?? null,
             'encountered_at' => Carbon::createFromTimestamp($stay['Tcheckin'] / 1000),
         ];
