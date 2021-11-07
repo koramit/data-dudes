@@ -10,4 +10,9 @@ class Stay extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+    public function notes()
+    {
+        return $this->hasMany('App\Models\StayNote', 'stay_id', 'id');
+    }
 }
