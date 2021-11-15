@@ -41,4 +41,9 @@ return [
     'STAY_OUTCOME_URL' => env('STAY_OUTCOME_URL'),
     'STAY_OUTCOME_NOTES_URL' => env('STAY_OUTCOME_NOTES_URL'),
 
+    'API_GUARD' => [
+        'app' => env('API_GUARD_APP'),
+        'token' => env('API_GUARD_TOKEN'),
+    ],
+
 ];
