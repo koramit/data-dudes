@@ -16,7 +16,7 @@ trait StayFormatable
             'hn' => $stay['hn'],
             'dob' => Carbon::create($stay['birthdate']),
             'name' => $stay['fname'],
-            'gender' => ($stay['gender'] ?? '') === 'หญิง' ? 1 : 2,
+            'gender' => ($stay['sex'] ?? '') === 'หญิง' ? 1 : 2,
             'anonymous' => $stay['anonymous'],
             'origin' => $stay['modeArrival'] ?? null,
             'chief_complaint' => $stay['cc'] ?? null,
