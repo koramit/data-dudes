@@ -8,7 +8,7 @@ use App\Models\AdmitCall;
 
 class AdmissionListBuilder
 {
-    protected $LIMIT_CASES = 10;
+    protected $LIMIT_CASES = 25;
 
     public function run()
     {
