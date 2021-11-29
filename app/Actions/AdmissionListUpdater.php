@@ -5,13 +5,16 @@ namespace App\Actions;
 use App\APIs\HannahAPI;
 use App\Managers\AdmissionManager;
 use App\Models\Admission;
+use Illuminate\Support\Facades\Log;
 
 class AdmissionListUpdater
 {
-    protected $LIMIT_CASES = 250;
+    protected $LIMIT_CASES = 300;
 
     public function run()
     {
+        Log::notice('AdmissionListUpdater@ddudes');
+
         $ans = $this->getList();
 
         $api = new HannahAPI;
