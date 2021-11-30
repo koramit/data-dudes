@@ -5,7 +5,6 @@ namespace App\Actions;
 use App\APIs\HannahAPI;
 use App\Managers\AdmissionManager;
 use App\Models\Admission;
-use Illuminate\Support\Facades\Log;
 
 class AdmissionListUpdater
 {
@@ -13,8 +12,6 @@ class AdmissionListUpdater
 
     public function run()
     {
-        Log::notice('AdmissionListUpdater@ddudes');
-
         $ans = $this->getList();
 
         $api = new HannahAPI;
