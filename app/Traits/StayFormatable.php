@@ -33,7 +33,7 @@ trait StayFormatable
             'diagnosis' => $stay['dx'] ?? null,
             'sbp' => $stay['bpSys'] ?? null,
             'dbp' => $stay['bpDias'] ?? null,
-            'temperature_celsius' => $stay['temp'] ?? null,
+            'temperature_celsius' => $this->validateTemp($stay['temp'] ?? null),
             'pulse_per_minute' => $stay['pr'] ?? null,
             'respiration_rate_per_minute' => $stay['rr'] ?? null,
             'o2_sat' => $stay['o2'] ?? null,
@@ -41,5 +41,14 @@ trait StayFormatable
             'remark' => $stay['remark'] ?? null,
             'encountered_at' => Carbon::createFromTimestamp($stay['Tcheckin'] / 1000),
         ];
+    }
+
+    protected function validateTemp($value)
+    {
+        if (! $value || strlen($value) > 4 || ! is_numeric($value)) {
+            return null;
+        }
+
+        return $value;
     }
 }
