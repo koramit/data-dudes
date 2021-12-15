@@ -31,8 +31,8 @@ trait StayFormatable
             'tube' => $stay['isTube'] ?? false,
             'observe' => $stay['isObserve'] ?? false,
             'diagnosis' => $stay['dx'] ?? null,
-            'sbp' => $stay['bpSys'] ?? null,
-            'dbp' => $stay['bpDias'] ?? null,
+            'sbp' => $this->validateBP($stay['bpSys'] ?? null),
+            'dbp' => $this->validateBP($stay['bpDias'] ?? null),
             'temperature_celsius' => $this->validateTemp($stay['temp'] ?? null),
             'pulse_per_minute' => $stay['pr'] ?? null,
             'respiration_rate_per_minute' => $stay['rr'] ?? null,
@@ -46,6 +46,15 @@ trait StayFormatable
     protected function validateTemp($value)
     {
         if (! $value || strlen($value) > 4 || ! is_numeric($value)) {
+            return null;
+        }
+
+        return $value;
+    }
+
+    protected function validateBP($value)
+    {
+        if (! $value || strlen($value) > 3 || ! is_int($value) || $value > 255) {
             return null;
         }
 
