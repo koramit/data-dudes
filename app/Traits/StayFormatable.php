@@ -31,12 +31,12 @@ trait StayFormatable
             'tube' => $stay['isTube'] ?? false,
             'observe' => $stay['isObserve'] ?? false,
             'diagnosis' => $stay['dx'] ?? null,
-            'sbp' => $this->validateBP($stay['bpSys'] ?? null),
-            'dbp' => $this->validateBP($stay['bpDias'] ?? null),
+            'sbp' => $this->validateVitalSign($stay['bpSys'] ?? null),
+            'dbp' => $this->validateVitalSign($stay['bpDias'] ?? null),
             'temperature_celsius' => $this->validateTemp($stay['temp'] ?? null),
-            'pulse_per_minute' => $stay['pr'] ?? null,
-            'respiration_rate_per_minute' => $stay['rr'] ?? null,
-            'o2_sat' => $stay['o2'] ?? null,
+            'pulse_per_minute' => $this->validateVitalSign($stay['pr'] ?? null),
+            'respiration_rate_per_minute' => $this->validateVitalSign($stay['rr'] ?? null),
+            'o2_sat' => $this->validateVitalSign($stay['o2'] ?? null),
             'vital_signs_at' => ($stay['vitalSignTime'] ?? null) ? Carbon::createFromTimestamp($stay['vitalSignTime'] / 1000) : null,
             'remark' => $stay['remark'] ?? null,
             'encountered_at' => Carbon::createFromTimestamp($stay['Tcheckin'] / 1000),
@@ -52,7 +52,7 @@ trait StayFormatable
         return $value;
     }
 
-    protected function validateBP($value)
+    protected function validateVitalSign($value)
     {
         if (! $value || strlen($value) > 3 || ! is_int($value) || $value > 255) {
             return null;
