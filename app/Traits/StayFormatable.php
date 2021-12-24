@@ -45,7 +45,7 @@ trait StayFormatable
 
     protected function validateTemp($value)
     {
-        if (! $value || strlen($value) > 4 || ! is_numeric($value)) {
+        if (! $value || strlen($value) > 4 || ! is_numeric($value) || $value > 99) {
             return null;
         }
 
