@@ -20,7 +20,7 @@ class AdmissionListUpdater
         $ans->each(function ($an) use ($api, $manager) {
             $admit = $api->getAdmission($an);
 
-            if ($admit['found']) {
+            if ($admit['ok'] && $admit['found']) {
                 $manager->manage($admit);
             }
         });
