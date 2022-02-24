@@ -30,7 +30,7 @@ trait StayFormatable
             'cpr' => $stay['CPR'] ?? false,
             'tube' => $stay['isTube'] ?? false,
             'observe' => $stay['isObserve'] ?? false,
-            'diagnosis' => $stay['dx'] ?? null,
+            'diagnosis' => $this->validateString($stay['dx'] ?? null),
             'sbp' => $this->validateVitalSign($stay['bpSys'] ?? null),
             'dbp' => $this->validateVitalSign($stay['bpDias'] ?? null),
             'temperature_celsius' => $this->validateTemp($stay['temp'] ?? null),
@@ -56,6 +56,21 @@ trait StayFormatable
     {
         if (! $value || strlen($value) > 3 || ! is_int($value) || $value > 255) {
             return null;
+        }
+
+        return $value;
+    }
+
+    protected function validateString($value)
+    {
+        if (! $value) {
+            return null;
+        }
+
+        $value = preg_replace('!\s+!', ' ', $value);
+
+        if (strlen($value) > 255) {
+            return substr($value, 0, 254);
         }
 
         return $value;
