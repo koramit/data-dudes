@@ -14,7 +14,7 @@ trait StayFormatable
             'ref_id' => $stay['en'],
             'on_work_hour' => $stay['isInOfficeHour'],
             'hn' => $stay['hn'],
-            'dob' => Carbon::create($stay['birthdate']),
+            'dob' => ($stay['birthdate'] ?? null) ? Carbon::create($stay['birthdate']) : null,
             'name' => $stay['fname'],
             'gender' => ($stay['sex'] ?? '') === 'หญิง' ? 1 : 2,
             'anonymous' => $stay['anonymous'],
