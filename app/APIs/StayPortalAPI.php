@@ -35,7 +35,7 @@ class StayPortalAPI
     {
         $data = $this->makePost('/stay/status-notes/'.$refId);
 
-        if (! $data || ! $data['ok']) {
+        if (! $data || ! $data['ok'] || ! count($data['notes'] ?? [])) {
             return false;
         }
 
@@ -57,7 +57,7 @@ class StayPortalAPI
     {
         $data = $this->makePost('/stay/outcome-notes/'.$refId);
 
-        if (! $data || ! $data['ok']) {
+        if (! $data || ! $data['ok'] || ! count($data['notes'] ?? [])) {
             return false;
         }
 
