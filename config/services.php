@@ -46,4 +46,7 @@ return [
         'token' => env('API_GUARD_TOKEN'),
     ],
 
+    'portal_base_url' => env('portal_base_url'),
+    'portal_access_token' => env('portal_access_token'),
+
 ];
