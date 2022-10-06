@@ -3,7 +3,7 @@
 namespace App\Actions;
 
 use App\APIs\StayAPI;
-use App\APIs\StayHannahAPI;
+use App\APIs\StayPortalAPI;
 use App\Models\Stay;
 use App\Traits\StayFormatable;
 
@@ -14,7 +14,7 @@ class StayListBuilder
     public function run()
     {
         // $api = new StayAPI;
-        $api = new StayHannahAPI;
+        $api = new StayPortalAPI;
 
         $data = $api->getQueue();
 

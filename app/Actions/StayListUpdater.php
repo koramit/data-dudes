@@ -2,7 +2,7 @@
 
 namespace App\Actions;
 
-use App\APIs\StayHannahAPI;
+use App\APIs\StayPortalAPI;
 use App\Models\Stay;
 use App\Models\StayNote;
 use App\Traits\StayFormatable;
@@ -18,7 +18,7 @@ class StayListUpdater
                            ->whereNull('dismissed_at')
                            ->get();
 
-        $api = new StayHannahAPI;
+        $api = new StayPortalAPI;
         $upsertNotes = [];
         foreach ($activeStays as $stay) {
             if (! $data = $api->getStatus($stay->ref_id)) {
