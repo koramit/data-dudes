@@ -17,7 +17,7 @@ class StayPortalAPI
             return false;
         }
 
-        return $data;
+        return $data['queue'];
     }
 
     public function getStatus($refId)
@@ -28,7 +28,7 @@ class StayPortalAPI
             return false;
         }
 
-        return $data;
+        return $data['status'];
     }
 
     public function getStatusNotes($refId)
@@ -39,7 +39,7 @@ class StayPortalAPI
             return false;
         }
 
-        return $data;
+        return $data['notes'];
     }
 
     public function getOutcome($refId)
@@ -50,7 +50,7 @@ class StayPortalAPI
             return false;
         }
 
-        return $data;
+        return $data['outcome'];
     }
 
     public function getOutcomeNotes($refId)
@@ -61,7 +61,7 @@ class StayPortalAPI
             return false;
         }
 
-        return $data;
+        return $data['notes'];
     }
 
     protected function makePost($url)
