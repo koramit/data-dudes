@@ -13,7 +13,7 @@ class StayPortalAPI
     public function getQueue()
     {
         $data = $this->makePost('/stay/queue');
-        if (! $data || ! $data['ok'])) {
+        if (! $data || ! $data(['ok'])) {
             return false;
         }
 
@@ -24,7 +24,7 @@ class StayPortalAPI
     {
         $data = $this->makePost('/stay/status/'.$refId);
 
-        if (! $data || ! $data['ok'])) {
+        if (! $data || ! $data(['ok'])) {
             return false;
         }
 
@@ -35,7 +35,7 @@ class StayPortalAPI
     {
         $data = $this->makePost('/stay/status-notes/'.$refId);
 
-        if (! $data || ! $data['ok'])) {
+        if (! $data || ! $data(['ok'])) {
             return false;
         }
 
@@ -46,7 +46,7 @@ class StayPortalAPI
     {
         $data = $this->makePost('/stay/outcome/'.$refId);
 
-        if (! $data || ! $data['ok'])) {
+        if (! $data || ! $data(['ok'])) {
             return false;
         }
 
@@ -57,7 +57,7 @@ class StayPortalAPI
     {
         $data = $this->makePost('/stay/outcome-notes/'.$refId);
 
-        if (! $data || ! $data['ok'])) {
+        if (! $data || ! $data(['ok'])) {
             return false;
         }
 
