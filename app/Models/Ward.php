@@ -9,7 +9,7 @@ class Ward extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'name_short'];
+    protected $fillable = ['name', 'name_short', 'no'];
 
     public function admissions()
     {

@@ -12,7 +12,7 @@ class AdmissionManager
     {
         $admission = Admission::whereAn($data['an'])->first();
 
-        $ward = $this->maintainWard($data['ward_name'], $data['ward_name_short']);
+        $ward = $this->maintainWard($data['ward_name'], $data['ward_name_short'], $data['ward_no']);
         $staff = $this->maintainAttendingStaff($data['attending_name'], $data['attending_license_no'] ?? $data['attending_name']);
 
         if ($admission) {
@@ -47,7 +47,7 @@ class AdmissionManager
         $admission->discharge_type_name = $data['discharge_type_name'];
         $admission->discharge_status_name = $data['discharge_status_name'];
 
-        $ward = $this->maintainWard($data['ward_name'], $data['ward_name_short']);
+        $ward = $this->maintainWard($data['ward_name'], $data['ward_name_short'], $data['ward_no']);
         $staff = $this->maintainAttendingStaff($data['attending_name'], $data['attending_license_no'] ?? $data['attending_name']);
 
         $admission->ward_id = $ward->id;
@@ -61,7 +61,7 @@ class AdmissionManager
         ]);
     }
 
-    protected function maintainWard($name, $nameShort)
+    protected function maintainWard($name, $nameShort, $no)
     {
         if ($ward = Ward::whereName($name)->first()) {
             return $ward;
@@ -70,6 +70,7 @@ class AdmissionManager
         return Ward::create([
             'name' => $name,
             'name_short' => $nameShort,
+            'no' => $no,
         ]);
     }
 
