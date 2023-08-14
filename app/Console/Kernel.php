@@ -30,12 +30,12 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // admissoin
-        $schedule->call(fn () => (new AdmissionListUpdater)->run())->hourlyAt(0);
-        $schedule->call(fn () => (new AdmissionListUpdater)->run())->hourlyAt(10);
-        $schedule->call(fn () => (new AdmissionListBuilder)->run())->hourlyAt(15);
-        $schedule->call(fn () => (new AdmissionListUpdater)->run())->hourlyAt(30);
-        $schedule->call(fn () => (new AdmissionListBuilder)->run())->hourlyAt(45);
-        $schedule->call(fn () => (new AdmissionListUpdater)->run())->hourlyAt(50);
+        // $schedule->call(fn () => (new AdmissionListUpdater)->run())->hourlyAt(0);
+        // $schedule->call(fn () => (new AdmissionListUpdater)->run())->hourlyAt(10);
+        // $schedule->call(fn () => (new AdmissionListBuilder)->run())->hourlyAt(15);
+        // $schedule->call(fn () => (new AdmissionListUpdater)->run())->hourlyAt(30);
+        // $schedule->call(fn () => (new AdmissionListBuilder)->run())->hourlyAt(45);
+        // $schedule->call(fn () => (new AdmissionListUpdater)->run())->hourlyAt(50);
 
         // stay
         // $schedule->call(function () {
